@@ -102,7 +102,7 @@ class Excellence_Fee_Model_Fee extends Varien_Object
 
 						$this->productName = $_product->getName();
 						$this->feeMount = -1 * $_product->getPrice();
-						$couponDao->setCouponSavingInUse($couponSaving, $this->feeMount,$orderId  );
+						$couponDao->setCouponSavingInUse($couponSaving, $_product->getPrice(),$orderId  );
 							
 						Mage::log("Komt in aanmerking voor gratis product" . $this->productName . " price" . $this->feeMount, null, 'custom.log');
 

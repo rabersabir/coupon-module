@@ -270,7 +270,7 @@ class CouponDao
 		Mage::log("loadCouponSaving select  query $query", null, 'custom.log');
 
 		$results  = $this->readConnection->fetchAll($query);
-		$savingCoupon;
+		$savingCoupon =null;
 		if  (sizeof($results) == 0) {
 			return null;
 

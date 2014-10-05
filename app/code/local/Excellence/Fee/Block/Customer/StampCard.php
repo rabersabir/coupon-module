@@ -1,9 +1,9 @@
 <?php
-include_once (__DIR__.'/Sales/coupon/CouponDao.php');
-include_once(__DIR__.'/Sales/coupon/Coupon.php');
-include_once(__DIR__.'/Sales/coupon/CouponSaving.php');
-include_once(__DIR__.'/Sales/coupon/Stamp.php');
-include_once(__DIR__.'/Sales/coupon/CouponState.php');
+include_once (__DIR__.'../../../Model/Sales/coupon/CouponDao.php');
+include_once(__DIR__.'../../../Model/Sales/coupon/Coupon.php');
+include_once(__DIR__.'../../../Model/Sales/coupon/CouponSaving.php');
+include_once(__DIR__.'../../../Model/Sales/coupon/Stamp.php');
+include_once(__DIR__.'../../../Model/Sales/coupon/CouponState.php');
 
 class Excellence_Fee_Block_Customer_StampCard extends Mage_Core_Block_Template
 {

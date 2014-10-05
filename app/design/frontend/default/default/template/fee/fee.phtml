@@ -1,0 +1,86 @@
+<?php
+/**
+ */
+?>
+<div class="my-stampcards">
+    <div class="page-title">
+        <h1><?php echo $this->__('Stempelkaart') ?></h1>
+    </div>
+    <div class="box-info-stamp">
+        <p class="hello"><strong><?php echo $this->__('Hello, %s!', $this->escapeHtml($this->getCustomerName())); $this->getStampCard()?></strong></p>
+        <p><?php echo $this->__('Hieronder kunt u de ingevulde spaarkaarten vinden') ?></p>
+    </div>
+    <div class="box-current-stampcards">
+        <?php echo $data ?>
+        <?php #if($coupons->getSize()): ?>
+        <?php #foreach($coupons as $item):?>
+        <?php #echo $this->$item->$getManufacturerCoupon() ?>
+        <div class="<?php #echo $item->$getCouponCard() ?>">
+            <?php #foreach($stamps as $item):?>
+            <div class="stamp">
+                <p><strong><?php echo $this->__('Date') ?></strong><?php #echo $item->getStampDate() ?></p>
+                <p><strong><?php echo $this->__('Product') ?></strong><?php #echo $item->getStampProduct() ?></p>
+                <p><strong><?php echo $this->__('Price') ?></strong><?php #echo $item->getStampPrice() ?></p>
+            </div>
+            <?php #endforeach ?>
+        </div>
+        <?php #endforeach ?>
+        <?php #else: ?>
+        <p><?php #echo $this->__('U heeft nog geen spaarkaarten') ?></p>
+        <?php #endif ?>
+    </div>
+</div>
+
+<!-- 
+css couponcard example 
+.box-current-stampcards {}
+.eucerin-stamp-3 {display:block;width:300px;height:200px;background: ../stampcard-eucerin-3.png;} 
+.stamp {display:block;width:80px;height:80px;}
+-->
+
+
+<!--
+<div class="page-title">
+    <h1><?php #echo $this->__('Wishlist') ?></h1>
+</div>
+<?php #if($wishlist->getSize()): ?>
+<form action="<?php #echo $this->getUrl('customer/wishlist/updatePost') ?>" method="post">
+    <table class="data-table">
+        <col />
+        <col width="60" />
+        <col width="60" />
+        <col width="60" />
+        <thead>
+            <tr>
+                <th><?php #echo $this->__('Product') ?></th>
+                <th><?php #echo $this->__('Status') ?></th>
+                <th><?php #echo $this->__('To Cart') ?></th>
+                <th><?php #echo $this->__('Remove') ?></th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php #foreach($wishlist as $item): ?>
+            <tr>
+                <td>
+                    <input type="hidden" value="1" name="wishlist[<?php #echo $item->getItemId() ?>]" />
+                    <a href="<?php #echo $this->getUrl('catalog/product/view/id/'.$item->getProduct()->getId()) ?>"><?php #echo $this->escapeHtml($item->getProduct()->getName()) ?></a>
+                </td>
+                <td><?php #echo $item->getStatus() ?></td>
+                <td><input type="checkbox" value="1" name="to_cart[<?php #echo $item->getItemId() ?>]" class="checkbox" /></td>
+                <td><input type="checkbox" value="1" name="remove[<?php #echo $item->getItemId() ?>]" class="checkbox" /></td>
+            </tr>
+        <?php #endforeach ?>
+        </tbody>
+    </table>
+    <div class="buttons-set">
+        <a href="<?php #echo Mage::getBaseUrl() ?>">&laquo; <?php #echo $this->__('Continue Shopping') ?></a>
+        <input type="submit" value="<?php #echo $this->__('Update') ?>" class="input-button" name="do" />
+    </div>
+</form>
+<?php #else: ?>
+    <p><?php #echo $this->__('You have placed no products yet.') ?></p>
+    <div class="buttons-set">
+        <p class="back-link"><a href="<?php #echo $this->getUrl('customer/account') ?>"><small>&laquo; </small><?php #echo $this->__('Back - link to the previously viewed page') ?></a></p>
+    </div>
+<?php #endif ?>
+-->

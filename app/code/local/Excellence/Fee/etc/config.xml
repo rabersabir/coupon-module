@@ -70,19 +70,27 @@
 					</sales_order_invoice_save_after>
 				</observers>
 			</sales_order_invoice_save_after>
+			<sales_order_invoice_register>
+            				<observers>
+            					<sales_order_invoice_register>
+            						<class>fee/observer</class>
+            						<method>invoiceSaveAfter</method>
+            					</sales_order_invoice_register>
+            				</observers>
+            </sales_order_invoice_register>
 			<sales_order_place_after>
 				<observers>
-					<yourmodule_order_place_after>
+					<sales_order_place_after>
 						<class>fee/observer</class>
 						<method>onSalesOrderPlaceAfter</method>
-					</yourmodule_order_place_after>
+					</sales_order_place_after>
 				</observers>
 			</sales_order_place_after>
 			<sales_quote_remove_item>
 				<observers>
 					<sales_quote_remove_item>
 						<class>fee/observer</class>
-						<method>checktForCouponSaving</method>
+						<method>checkForCouponSaving</method>
 					</sales_quote_remove_item>
 				</observers>
 			</sales_quote_remove_item>
@@ -90,7 +98,7 @@
 				<observers>
 					<customer_logout>
 						<class>fee/observer</class>
-						<method>checktForCouponSaving</method>
+						<method>checkForCouponSaving</method>
 					</customer_logout>
 				</observers>
 			</customer_logout>
