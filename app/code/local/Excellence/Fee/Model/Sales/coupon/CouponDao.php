@@ -46,10 +46,11 @@ class CouponDao
 	public function getOverviewByCustomerId($customerId){
 
 
-		$sqlQuery="SELECT cs.*, count(*) aantalproducten, max(st.prices) duursteproduct FROM coupon_saving cs, stamp st 
-		WHERE st.coupon_saving_id=cs.coupon_saving_id and customer=$customerId group by cs.coupon_saving_id
+		$sqlQuery="SELECT cs.*, c.*, count(*) aantalproducten, max(st.prices) duursteproduct FROM coupon_saving cs, stamp st, coupon c
+		WHERE st.coupon_saving_id=cs.coupon_saving_id and customer=$customerId and c.coupon_id=cs.coupon_id group by cs.coupon_saving_id
 		LIMIT 0, 30 ";
-		
+
+        Mage::log("was is de query $sqlQuery",null,'custom.log');
 		$data  = $this->readConnection->fetchAll($sqlQuery);
 		if  (sizeof($data) == 0) {
 			return null;

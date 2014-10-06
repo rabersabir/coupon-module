@@ -3,32 +3,49 @@
  */
 ?>
 <div class="my-stampcards">
-	<div class="page-title">
-		<h1><?php echo $this->__('Stempelkaart') ?></h1>
-	</div>
-	<div class="box-info-stamp">
-		<p class="hello"><strong><?php echo $this->__('Hello, %s!', $this->escapeHtml($this->getCustomerName())); $this->getStampCard()?></strong></p>
-		<p><?php echo $this->__('Hieronder kunt u de ingevulde spaarkaarten vinden') ?></p>
-	</div>
-	<div class="box-current-stampcards">
-	<?php echo $data ?>
-		<?php #if($coupons->getSize()): ?>
-			<?php #foreach($coupons as $item):?>
-				<?php #echo $this->$item->$getManufacturerCoupon() ?>
-				<div class="<?php #echo $item->$getCouponCard() ?>">
-					<?php #foreach($stamps as $item):?>
-						<div class="stamp">
-							<p><strong><?php echo $this->__('Date') ?></strong><?php #echo $item->getStampDate() ?></p>
-							<p><strong><?php echo $this->__('Product') ?></strong><?php #echo $item->getStampProduct() ?></p>
-							<p><strong><?php echo $this->__('Price') ?></strong><?php #echo $item->getStampPrice() ?></p>
-						</div>
-					<?php #endforeach ?>
-				</div>
-			<?php #endforeach ?>
-		<?php #else: ?>
-			<p><?php #echo $this->__('U heeft nog geen spaarkaarten') ?></p>
-		<?php #endif ?>
-	</div>
+    <div class="page-title">
+        <h1><?php echo $this->__('Stempelkaart') ?></h1>
+    </div>
+    <div class="box-info-stamp">
+        <p class="hello"><strong><?php echo $this->__('Hello, %s!', $this->escapeHtml($this->getCustomerName()));
+                $this->getStampCard() ?></strong></p>
+
+        <p><?php echo $this->__('Hieronder kunt u de ingevulde spaarkaarten vinden') ?></p>
+    </div>
+    <div class="box-current-stampcards">
+
+
+        <?php $coupons = $this->getStampCard(); ?>
+        <table class=" data-table">
+
+        <thead>
+        <tr>
+            <th><?php echo $this->__('Merk') ?></th>
+            <th><?php echo $this->__('Aantal besteld') ?></th>
+            <th><?php echo $this->__('Aantal nodig') ?></th>
+            <th><?php echo $this->__('Duurste product') ?></th>
+            <th><?php echo $this->__('Status') ?></th>
+            <th><?php echo $this->__('Korting') ?></th>
+        </tr>
+        </thead>
+
+        <?php foreach ($coupons as $coupon): ?>
+            <tbody>
+            <tr>
+                <td><?php echo $coupon['brand']; ?></td>
+                <td><?php echo $coupon['aantalproducten']; ?></td>
+                <td><?php echo $coupon['required_number_of_products']; ?></td>
+                <td><?php echo $coupon['duursteproduct']; ?></td>
+                <td><?php echo $this->getState($coupon['state']); ?></td>
+                <td><?php echo $coupon['discount_amount']; ?></td>
+            </tr>
+            </tbody>
+
+        <?php endforeach ?>
+    </div>
+    </table>
+
+</div>
 </div>
 
 <!-- 

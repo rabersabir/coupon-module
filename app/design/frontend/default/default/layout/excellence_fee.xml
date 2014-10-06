@@ -11,7 +11,7 @@
     <excellence_fee_index_index>
         <update handle="customer_account" />
         <reference name="my.account.wrapper">
-            <block type="core/template" name="excellence_fee_content" template="fee/excellence_fee.phtml"/>
+            <block type="fee/sales_order_stamp" name="fee.sales.order.stamp" template="fee/excellence_fee.phtml"/>
         </reference>
     </excellence_fee_index_index>
 </layout>

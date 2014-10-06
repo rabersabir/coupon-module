@@ -1,16 +1,15 @@
 <?php
-include_once (__DIR__.'../../../Model/Sales/coupon/CouponDao.php');
-include_once(__DIR__.'../../../Model/Sales/coupon/Coupon.php');
-include_once(__DIR__.'../../../Model/Sales/coupon/CouponSaving.php');
-include_once(__DIR__.'../../../Model/Sales/coupon/Stamp.php');
-include_once(__DIR__.'../../../Model/Sales/coupon/CouponState.php');
+include_once (__DIR__.'../../../../Model/Sales/coupon/CouponDao.php');
+include_once(__DIR__.'../../../../Model/Sales/coupon/Coupon.php');
+include_once(__DIR__.'../../../../Model/Sales/coupon/CouponSaving.php');
+include_once(__DIR__.'../../../../Model/Sales/coupon/Stamp.php');
+include_once(__DIR__.'../../../../Model/Sales/coupon/CouponState.php');
 class Excellence_Fee_Block_Sales_Order_Total extends Mage_Core_Block_Template
 {
 
 
     public function getStampCard()
     {
-
         $couponDao = new CouponDao();
         $customerId = Mage::getSingleton('customer/session')->getId();
         $coupons = $couponDao->getOverviewByCustomerId($customerId);
@@ -19,8 +18,6 @@ class Excellence_Fee_Block_Sales_Order_Total extends Mage_Core_Block_Template
             $aantal = $coupon['aantalproducten'];
             $duurste = $coupon['duursteproduct'];
             $value = array_values($coupon);
-            echo(" copuon  $aantal en $duurste");
-            Mage::log("data $value", null, 'custom.log');
         }
         return $coupons;
     }
