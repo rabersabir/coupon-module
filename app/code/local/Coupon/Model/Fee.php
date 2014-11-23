@@ -1,13 +1,13 @@
 <?php
 
-include_once (__DIR__.'/Sales/coupon/CouponDao.php');
-include_once(__DIR__.'/Sales/coupon/Coupon.php');
-include_once(__DIR__.'/Sales/coupon/CouponSaving.php');
-include_once(__DIR__.'/Sales/coupon/Stamp.php');
-include_once(__DIR__.'/Sales/coupon/CouponState.php');
+include_once(__DIR__ . '/Sales/coupon/CouponDao.php');
+include_once(__DIR__ . '/Sales/coupon/Coupon.php');
+include_once(__DIR__ . '/Sales/coupon/CouponSaving.php');
+include_once(__DIR__ . '/Sales/coupon/Stamp.php');
+include_once(__DIR__ . '/Sales/coupon/CouponState.php');
 
 
-class Excellence_Fee_Model_Fee extends Varien_Object
+class Coupon_Fee_Model_Fee extends Varien_Object
 {
 	protected $feeMount = 0;
 
@@ -60,7 +60,7 @@ class Excellence_Fee_Model_Fee extends Varien_Object
 	{
 		return $this->productId;
 	}
-	public function canApply($item, $orderId)
+	public function canApply($item, $orderId,$totalAmount)
 	{
 
 		Mage::log("canApply items ", null, 'custom.log');
@@ -101,10 +101,10 @@ class Excellence_Fee_Model_Fee extends Varien_Object
 						Mage::log("stap 3   ", null, 'custom.log');
 
 						$this->productName = $_product->getName();
-						$this->feeMount = -1 * $_product->getPrice();
-						$couponDao->setCouponSavingInUse($couponSaving, $_product->getPrice(),$orderId  );
+						$this->feeMount = -1 * $totalAmount;
+						$couponDao->setCouponSavingInUse($couponSaving, $totalAmount,$orderId  );
 							
-						Mage::log("Komt in aanmerking voor gratis product" . $this->productName . " price" . $this->feeMount, null, 'custom.log');
+						Mage::log("Komt in aanmerking voor gratis product" . $this->productName . " price" . $totalAmount, null, 'custom.log');
 
 						return true;
 					}

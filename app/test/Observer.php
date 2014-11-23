@@ -54,16 +54,15 @@ class Excellence_Fee_Model_Observer
                 $_product = Mage::getModel('catalog/product')->load($item->getProductId());
                 $manufacturerName = $_product->getAttributeText('manufacturer');
                 $coupon = $couponDao->loadCouponByBrand($manufacturerName);
-
+                $usedDiscountCoupons = array(1, 2, 3, 4, 5);
                 if ($coupon != null) {
                     for ($i = 1; $i <= $item->getQtyOrdered(); $i++) {
 
                         $couponSaving = $couponDao->loadInInVoiceCouponSaving($coupon->getCouponId(), $order->getCustomerId());
-                        Mage::log("invoice?", null);
                         if ($couponSaving != null) {
                             $couponDao->setCouponSavingToUsed($couponSaving);
                         } else {
-                            if ($price >= $coupon->getMinPrice() && !$this->discountCouponUsed($order, $manufacturerName)) {
+                            if ($price >= $coupon->getMinPrice() && !$this->discountCouponUsed($order, $manufacturerName,$usedDiscountCoupons)) {
                                 $couponSaving = $couponDao->loadCouponSaving($coupon->getCouponId(), $order->getCustomerId(), CouponState::OPEN);
                                 if ($couponSaving == null) {
                                     $couponSavingNew = CouponSaving:: startCouponSaving($coupon, $order->getCustomerId());
@@ -99,11 +98,12 @@ class Excellence_Fee_Model_Observer
     }
 
 
-    function discountCouponUsed($order, $brand)
+    function discountCouponUsed($order, $brand,$usedDiscountCoupons)
     {
         $couponCode = $order->getCouponCode();
-        if ($couponCode) {
+        if ($couponCode && !n_array($couponCode,$usedDiscountCoupons)) {
             if (strpos($couponCode, $brand) !== FALSE) {
+                array_push($usedDiscountCoupons,$couponCode);
                 return true;
             }
         }
@@ -209,7 +209,7 @@ class Excellence_Fee_Model_Observer
                     //$exist_amount = $couponSaving->getDiscountAmount();
                     //$discountAmount = $exist_amount;
                     array_push($array, $brand);
-                } else if ($obj->canApply($item, $quoteId)) {
+                } else if ($obj->canApply($item, $quoteId,$totalAmount)) {
 
                     Mage::log("setDiscount : stap voor 2   ", null, 'custom.log');
                     $brand = $obj->getBrand();

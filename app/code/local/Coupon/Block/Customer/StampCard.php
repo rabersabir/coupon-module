@@ -5,7 +5,7 @@ include_once(__DIR__.'../../../Model/Sales/coupon/CouponSaving.php');
 include_once(__DIR__.'../../../Model/Sales/coupon/Stamp.php');
 include_once(__DIR__.'../../../Model/Sales/coupon/CouponState.php');
 
-class Excellence_Fee_Block_Customer_StampCard extends Mage_Core_Block_Template
+class Coupon_Fee_Block_Customer_StampCard extends Mage_Core_Block_Template
 {
     public function getCustomer()
     {
@@ -23,15 +23,8 @@ class Excellence_Fee_Block_Customer_StampCard extends Mage_Core_Block_Template
             $aantal=$coupon['aantalproducten'];
             $duurste=$coupon['duursteproduct'];
             $value=array_values($coupon);
-            echo(" copuon  $aantal en $duurste");
-            Mage::log("data $value", null, 'custom.log');
-        }
+            }
 		return $coupons;
-//        if( $stampcard instanceof Varien_Object ) {
-//            return $stampcard->format('html');
-//        } else {
-//            return Mage::helper('customer')->__('You have not set a default shipping address.');
-//        }
     }
 
     public function getPrimaryShippingAddressEditUrl()

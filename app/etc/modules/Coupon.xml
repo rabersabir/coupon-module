@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?> 
 <config> 
 	<modules> 
-		<Excellence_Fee> 
+		<Coupon_Fee>
 			<active>true</active> 
 			<codePool>local</codePool> 
-		</Excellence_Fee> 
+		</Coupon_Fee>
 	</modules> 
 </config> 

@@ -6,7 +6,7 @@ include_once(__DIR__ . '../../Model/Sales/coupon/CouponSaving.php');
 include_once(__DIR__ . '../../Model/Sales/coupon/Stamp.php');
 include_once(__DIR__ . '../../Model/Sales/coupon/CouponState.php');
 
-class Excellence_Fee_IndexController extends Mage_Core_Controller_Front_Action
+class Coupon_Fee_IndexController extends Mage_Core_Controller_Front_Action
 {
 
     public function preDispatch()
@@ -21,11 +21,6 @@ class Excellence_Fee_IndexController extends Mage_Core_Controller_Front_Action
     public function indexAction()
     {
         $this->loadLayout();
-
-        #$this->getLayout()->getBlock('content')->append(
-        #    $this->getLayout()->createBlock('customer/account_dashboard')
-        #);
-        #$this->getLayout()->getBlock('head')->setTitle($this->__('My Account'));
         $this->renderLayout();
     }
 

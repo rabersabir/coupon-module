@@ -1,0 +1,17 @@
+<layout version="0.1.0">
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="addLink">
+                <name>Stempelkaart</name>
+                <path>excellence_fee/index/index</path>
+                <label>Stempelkaart</label>
+            </action>
+        </reference>
+    </customer_account>
+    <excellence_fee_index_index>
+        <update handle="customer_account" />
+        <reference name="my.account.wrapper">
+            <block type="fee/sales_order_stamp" name="fee.sales.order.stamp" template="fee/excellence_fee.phtml"/>
+        </reference>
+    </excellence_fee_index_index>
+</layout>
