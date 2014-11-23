@@ -10,6 +10,8 @@ include_once(__DIR__ . '/Sales/coupon/CouponState.php');
 class Excellence_Fee_Model_Observer
 {
 
+    protected $usedDiscountCoupons = array("coupon");
+
     protected $_code = 'fee';
     protected $_amount = 0;
 
@@ -20,6 +22,7 @@ class Excellence_Fee_Model_Observer
     protected $manufacturerName = '';
     protected $hasCouponRule = false;
     protected $added = false;
+
 
     public function invoiceSaveAfter(Varien_Event_Observer $observer)
     {
@@ -46,6 +49,13 @@ class Excellence_Fee_Model_Observer
 
             $invoice = $observer->getEvent()->getInvoice();
             $order = $invoice->getOrder();
+
+            // Method 1
+            unset($this->usedDiscountCoupons); // Unset $array.
+
+            $this->usedDiscountCoupons = array(); // Reset $array to an empty array.
+
+
             foreach ($order->getAllItems() as $item) {
                 // Do something with $item here...
                 $name = $item->getName();
@@ -59,7 +69,6 @@ class Excellence_Fee_Model_Observer
                     for ($i = 1; $i <= $item->getQtyOrdered(); $i++) {
 
                         $couponSaving = $couponDao->loadInInVoiceCouponSaving($coupon->getCouponId(), $order->getCustomerId());
-                        Mage::log("invoice?", null);
                         if ($couponSaving != null) {
                             $couponDao->setCouponSavingToUsed($couponSaving);
                         } else {
@@ -93,7 +102,7 @@ class Excellence_Fee_Model_Observer
             }
 
         } catch (Exception $e) {
-            Mage::log("This is product is " + $e, null);
+            Mage::log("exception " + $e, null);
         }
         return $this;
     }
@@ -102,11 +111,16 @@ class Excellence_Fee_Model_Observer
     function discountCouponUsed($order, $brand)
     {
         $couponCode = $order->getCouponCode();
-        if ($couponCode) {
-            if (strpos($couponCode, $brand) !== FALSE) {
+
+        Mage::log($this->usedDiscountCoupons, null);
+        in_array($couponCode, $this->usedDiscountCoupons) ? Mage::log("$couponCode  is found", null) : Mage::log("$couponCode  is NOT found", null);
+
+        if ($couponCode && !in_array($couponCode, $this->usedDiscountCoupons)) {
+        if (strpos($couponCode, $brand) !== FALSE) {
+            array_push($this->usedDiscountCoupons,$couponCode);
                 return true;
             }
-        }
+    }
         return false;
 
     }
@@ -209,7 +223,7 @@ class Excellence_Fee_Model_Observer
                     //$exist_amount = $couponSaving->getDiscountAmount();
                     //$discountAmount = $exist_amount;
                     array_push($array, $brand);
-                } else if ($obj->canApply($item, $quoteId)) {
+                } else if ($obj->canApply($item, $quoteId, $totalAmount)) {
 
                     Mage::log("setDiscount : stap voor 2   ", null, 'custom.log');
                     $brand = $obj->getBrand();
